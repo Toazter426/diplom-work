@@ -1,0 +1,9 @@
+#cloud-config
+users:
+  - name: omni
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZjevp/16J1B5pXe+rP565OV1K+uJC7JkQChJtEFSIBu/OCTBBRj6KzYTgoj5qL5+Tsde7YGjSjcPrQc7mJ8pdQ2PpWD74QGoMA3fHbcd4+x++n3HDq3YdOVho7eV5KaTS/w0qVZgDk8K30/+yFwBlNaOwBf1CvGAWwSQTKuK5vDP+aavgLTiD/eRcEeeszqWPtZBApOSShA5O2Aa480t1ikt1bsIlnZnvLTLvjIZlWCGH95ZTDnA+lqaTOjZC0oYdP9JMfgbvR0MMNIEip5XjAHFWfug09P/FkizlGtGaS7qaWhsaxUHn6MBTZ61Ws2+V+duG/g4OyBDmjBfIqY09/BwH4FgITuqlZTZ4y1/JhUtvwoyOr1VCSHzq4nvYCn2Z4Qh87ORjdYS5S3fAllFgX1UvMNVz/n60zsvYvnIm3Ej5Q/nCyWimG3MzFM622Au5a2ijqfUxZ4PXo7e1P5VAH50SdEjuR6zqq4DZmPjZfbLmIYwOYxAihR/LO1zUgtE= omnisaier
+
