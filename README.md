@@ -26,6 +26,9 @@
 
 Не используйте для ansible inventory ip-адреса! Вместо этого используйте fqdn имена виртуальных машин в зоне ".ru-central1.internal". Пример: example.ru-central1.internal  - для этого достаточно при создании ВМ указать name=example, hostname=examle !! 
 
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/Terraform.png)
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/ansible.png)
+
 Важно: используйте по-возможности **минимальные конфигурации ВМ**:2 ядра 20% Intel ice lake, 2-4Гб памяти, 10hdd, прерываемая. 
 
 **Так как прерываемая ВМ проработает не больше 24ч, перед сдачей работы на проверку дипломному руководителю сделайте ваши ВМ постоянно работающими.**
@@ -80,6 +83,7 @@ ansible-vault encrypt --vault-password-file password_file ansible/roles/grafana/
 ```
 
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Grafana-1.png)
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Grafana-2.png)
 
 ### Логи
@@ -99,7 +103,9 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/security%20groups.png)
 
 Настройте ВМ с публичным адресом, в которой будет открыт только один порт — ssh.  Эта вм будет реализовывать концепцию  [bastion host]( https://cloud.yandex.ru/docs/tutorials/routing/bastion) . Синоним "bastion host" - "Jump host". Подключение  ansible к серверам web и Elasticsearch через данный bastion host можно сделать с помощью  [ProxyCommand](https://docs.ansible.com/ansible/latest/network/user_guide/network_debug_troubleshooting.html#network-delegate-to-vs-proxycommand) . Допускается установка и запуск ansible непосредственно на bastion host.(Этот вариант легче в настройке)
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Bastion-host.png)
+
 Исходящий доступ в интернет для ВМ внутреннего контура через [NAT-шлюз](https://yandex.cloud/ru/docs/vpc/operations/create-nat-gateway).
 
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Nat-Gateway.png)
@@ -109,7 +115,9 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Snapshots.png)
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Cloud%20Logging.png)
+
 ### Обзор Виртуальных машин
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/VM%60s.png)
 
 ### Дополнительно
