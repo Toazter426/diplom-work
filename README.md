@@ -92,7 +92,7 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 ### Сеть
 Разверните один VPC. Сервера web, Elasticsearch поместите в приватные подсети. Сервера Zabbix, Kibana, application load balancer определите в публичную подсеть.
 
-![]()
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/Network-Map.png)
 
 Настройте [Security Groups](https://cloud.yandex.com/docs/vpc/concepts/security-groups) соответствующих сервисов на входящий трафик только к нужным портам.
 
