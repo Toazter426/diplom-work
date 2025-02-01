@@ -1,4 +1,4 @@
-#  Дипломная работа по профессии «Системный администратор-
+#  Дипломная работа по профессии «Системный администратор-Погорелов Ярослав FSYS-31»
 
 Содержание
 ==========
@@ -36,23 +36,37 @@
 Создайте две ВМ в разных зонах, установите на них сервер nginx, если его там нет. ОС и содержимое ВМ должно быть идентичным, это будут наши веб-сервера.
 
 Используйте набор статичных файлов для сайта. Можно переиспользовать сайт из домашнего задания.
-СКРИН-ИНДЕКСА
+
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/index.png)
+
 Виртуальные машины не должны обладать внешним Ip-адресом, те находится во внутренней сети. Доступ к ВМ по ssh через бастион-сервер. Доступ к web-порту ВМ через балансировщик yandex cloud.
 
 
 Настройка балансировщика:
 
 1. Создайте [Target Group](https://cloud.yandex.com/docs/application-load-balancer/concepts/target-group), включите в неё две созданных ВМ.
+
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/target_group.png)
+
 2. Создайте [Backend Group](https://cloud.yandex.com/docs/application-load-balancer/concepts/backend-group), настройте backends на target group, ранее созданную. Настройте healthcheck на корень (/) и порт 80, протокол HTTP.
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/backend_group.png)
-3. Создайте [HTTP router](https://cloud.yandex.com/docs/application-load-balancer/concepts/http-router). Путь укажите — /, backend group — созданную ранее.
+
+4. Создайте [HTTP router](https://cloud.yandex.com/docs/application-load-balancer/concepts/http-router). Путь укажите — /, backend group — созданную ранее.
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/HTTP-router.png)
-4. Создайте [Application load balancer](https://cloud.yandex.com/en/docs/application-load-balancer/) для распределения трафика на веб-сервера, созданные ранее. Укажите HTTP router, созданный ранее, задайте listener тип auto, порт 80.
+
+6. Создайте [Application load balancer](https://cloud.yandex.com/en/docs/application-load-balancer/) для распределения трафика на веб-сервера, созданные ранее. Укажите HTTP router, созданный ранее, задайте listener тип auto, порт 80.
+   
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Load-Balancer.png)
+
 Протестируйте сайт
-`curl -v <публичный IP балансера>:80` 
+
+`curl -v <публичный IP балансера>:80`
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Curl.png)
+
 ### Мониторинг
 Создайте ВМ, разверните на ней Zabbix. На каждую ВМ установите Zabbix Agent, настройте агенты на отправление метрик в Zabbix. 
 
@@ -64,6 +78,7 @@ echo “Ваш пароль сюда” > ../<Путь в закрытый фа�
 nano ansible/roles/grafana/vars/main.yml
 ansible-vault encrypt --vault-password-file password_file ansible/roles/grafana/vars/main.yml 
 ```
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Grafana-1.png)
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Grafana-2.png)
 
@@ -71,20 +86,31 @@ ansible-vault encrypt --vault-password-file password_file ansible/roles/grafana/
 Cоздайте ВМ, разверните на ней Elasticsearch. Установите filebeat в ВМ к веб-серверам, настройте на отправку access.log, error.log nginx в Elasticsearch.
 
 Создайте ВМ, разверните на ней Kibana, сконфигурируйте соединение с Elasticsearch.
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Kibana.png)
+
 ### Сеть
 Разверните один VPC. Сервера web, Elasticsearch поместите в приватные подсети. Сервера Zabbix, Kibana, application load balancer определите в публичную подсеть.
 
+![]()
+
 Настройте [Security Groups](https://cloud.yandex.com/docs/vpc/concepts/security-groups) соответствующих сервисов на входящий трафик только к нужным портам.
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/security%20groups.png)
+
 Настройте ВМ с публичным адресом, в которой будет открыт только один порт — ssh.  Эта вм будет реализовывать концепцию  [bastion host]( https://cloud.yandex.ru/docs/tutorials/routing/bastion) . Синоним "bastion host" - "Jump host". Подключение  ansible к серверам web и Elasticsearch через данный bastion host можно сделать с помощью  [ProxyCommand](https://docs.ansible.com/ansible/latest/network/user_guide/network_debug_troubleshooting.html#network-delegate-to-vs-proxycommand) . Допускается установка и запуск ansible непосредственно на bastion host.(Этот вариант легче в настройке)
-СКРИН БАСТИОНХОСТ.
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/Bastion-host.png)
 Исходящий доступ в интернет для ВМ внутреннего контура через [NAT-шлюз](https://yandex.cloud/ru/docs/vpc/operations/create-nat-gateway).
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Nat-Gateway.png)
+
 ### Резервное копирование
 Создайте snapshot дисков всех ВМ. Ограничьте время жизни snaphot в неделю. Сами snaphot настройте на ежедневное копирование.
+
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Snapshots.png)
-### Обзор Построения
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/Cloud%20Logging.png)
+### Обзор Виртуальных машин
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/VM%60s.png)
 
 ### Дополнительно
 Не входит в минимальные требования. 
