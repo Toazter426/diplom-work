@@ -116,9 +116,10 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Snapshots.png)
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/Cloud%20Logging.png)
 
-### Обзор Виртуальных машин
+### Обзор Виртуальных машин и внешних адресов
 
 ![](https://github.com/Toazter426/diplom-work/blob/master/Img/VM%60s.png)
+![](https://github.com/Toazter426/diplom-work/blob/master/Img/Pub-IPs.png)
 
 ### Дополнительно
 Не входит в минимальные требования. 
